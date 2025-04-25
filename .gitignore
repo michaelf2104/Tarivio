@@ -1,0 +1,29 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Virtual environment
+venv/
+.env
+.venv/
+env/
+
+# VS Code / IDE
+.vscode/
+.idea/
+
+# Alembic
+migrations/
+
+# PyInstaller
+*.spec
+
+# Frontend
+node_modules/
+build/
+dist/
+
+# macOS / Linux / Windows system files
+.DS_Store
+Thumbs.db
