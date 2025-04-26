@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: tarivio_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - ./backend/.env
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@host.docker.internal:5432/tarivio
+    depends_on:
+      - db_optional
+
+  db_optional:
+    image: postgres:15
+    container_name: tarivio_db_unused
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: tarivio 
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

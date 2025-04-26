@@ -25,4 +25,4 @@ class Answer(Base):
 
     # link to user
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.user_id"), nullable=False)
-    user = relationship("Customer", back_populates="answers")
+    user = relationship("User", back_populates="answers")

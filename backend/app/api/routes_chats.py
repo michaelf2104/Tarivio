@@ -17,16 +17,17 @@ class QuestionRequest(schemas.QuestionRequest):
 @router.post("/answers")
 async def receive_answer(data: schemas.AnswerCreate, db: Session = Depends(get_db)):
     try:
-        save_answer_to_db(db, data.customer_id, data.question_key, data.answer_text)
+        save_answer_to_db(db, data.user_id, data.question_key, data.answer_text)
     except Exception as e:
+        print(f"Fehler beim Speichern: {e}")
         raise HTTPException(status_code=500, detail="Error while saving answer")
     return {"status": "saved"}
 
 @router.get("/summary")
-async def get_summary(customer_id: str, db: Session = Depends(get_db)):
+async def get_summary(user_id: str, db: Session = Depends(get_db)):
     answers = (
         db.query(db_models.Answer)
-        .filter(db_models.Answer.user_id == customer_id)
+        .filter(db_models.Answer.user_id == user_id)
         .order_by(db_models.Answer.timestamp)
         .all()
     )

@@ -13,7 +13,7 @@ class SummaryResponse(BaseModel):
     summary: str
 
 class AnswerCreate(BaseModel):
-    customer_id: str
+    user_id: str
     question_key: str
     answer_text: str
 
