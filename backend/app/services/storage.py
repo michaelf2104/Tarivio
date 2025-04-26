@@ -8,8 +8,7 @@ def save_answer_to_db(db: Session, user_id: str, question_key: str, answer_text:
         user_uuid = uuid.UUID(user_id)
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid UUID format")
-    users = db.query(db_models.User).all()
-    print("alle user in der db:", users)
+
     user = db.query(db_models.User).filter(db_models.User.user_id == user_uuid).first()
     if not user:
         raise HTTPException(status_code=400, detail="User does not exist")
