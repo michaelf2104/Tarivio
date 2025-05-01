@@ -15,27 +15,29 @@ class QuestionRequest(schemas.QuestionRequest):
     question: str
 
 @router.post("/answers")
-async def receive_answer(data: schemas.AnswerCreate, db: Session = Depends(get_db)):
-    try:
-        save_answer_to_db(db, data.user_id, data.question_key, data.answer_text)
-    except Exception as e:
-        print(f"Fehler beim Speichern: {e}")
-        raise HTTPException(status_code=500, detail="Error while saving answer")
-    return {"status": "saved"}
-
-@router.get("/summary")
-async def get_summary(user_id: str, db: Session = Depends(get_db)):
-    answers = (
-        db.query(db_models.Answer)
-        .filter(db_models.Answer.user_id == user_id)
-        .order_by(db_models.Answer.timestamp)
-        .all()
+async def save_answer(answer: schemas.AnswerCreate, db: Session = Depends(get_db)):
+    new_answer = db_models.Answer(
+        user_id=answer.user_id,
+        question_key=answer.question_key,
+        answer_text=answer.answer_text,
     )
-    return {
-        "summary": "\n".join(
-            [f"{a.question_key}: {a.answer_text}" for a in answers]
-        )
-    }
+    db.add(new_answer)
+    db.commit()
+    return {"message": "Anwer saved"}
+
+# @router.get("/summary")
+# async def get_summary(user_id: str, db: Session = Depends(get_db)):
+#     answers = (
+#         db.query(db_models.Answer)
+#         .filter(db_models.Answer.user_id == user_id)
+#         .order_by(db_models.Answer.timestamp)
+#         .all()
+#     )
+#     return {
+#         "summary": "\n".join(
+#             [f"{a.question_key}: {a.answer_text}" for a in answers]
+#         )
+#     }
 
 @router.post("/question")
 async def ask_question(data: QuestionRequest):
