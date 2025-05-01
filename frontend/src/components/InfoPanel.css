@@ -1,0 +1,35 @@
+.info-panel {
+  padding: 24px;
+  background-color: white;
+  border-left: 1px solid #e0e0e0;
+  height: 100%;
+  font-family: 'Gilroy', sans-serif;
+  overflow-y: auto;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  z-index: 10;
+}
+
+.info-panel h3 {
+  font-size: 22px;
+  margin: 48px 0 16px 0; /* Abstand nach oben für das X */
+}
+
+.info-panel p {
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
