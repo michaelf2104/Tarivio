@@ -8,6 +8,9 @@ router = APIRouter(
     tags=["pflegepflichtversicherungen"]
 )
 
+"""
+endpoint to create a new pflegepflichtversicherung record
+"""
 @router.post("/ppv", response_model=schemas.PflegepflichtversicherungResponse)
 def create_pvns(ppv: schemas.PflegepflichtversicherungCreate, db: Session = Depends(get_db)):
     try:

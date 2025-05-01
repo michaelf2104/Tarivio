@@ -1,0 +1,10 @@
+.datepicker-input {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    font-family: 'Gilroy', sans-serif;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  

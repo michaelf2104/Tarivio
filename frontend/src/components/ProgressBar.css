@@ -1,0 +1,24 @@
+* {
+  font-family: var(--font-main);
+}
+
+.progress-bar-wrapper {
+  width: 100%;
+  padding: 12px 24px;
+  background-color: #f5f5f5;
+  /* box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);   */
+}
+
+.progress-bar {
+  height: 10px;
+  background-color: #e0d4fc;
+  border-radius: 10px; 
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #6a35e3;
+  transition: width 0.3s ease;
+}
+  
