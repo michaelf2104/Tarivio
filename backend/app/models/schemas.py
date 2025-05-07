@@ -1,6 +1,8 @@
 from pydantic import BaseModel
 from typing import Optional
 from uuid import UUID
+from app.models.enum_declaration import TariffLevel, ValueType
+
 
 class AnswerCreate(BaseModel):
     user_id: UUID
@@ -26,43 +28,55 @@ class InsurerCreate(InsurerBase):
 
 class InsurerResponse(InsurerBase):
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class TariffBase(BaseModel):
     id: str
     name: str
-    type: str  # "basetarif" or "addontarif"
-    cost: float
-    deductible: str
-    selfpay_type: str
-    selfpay_amount: float
     insurer_id: str
-    features: Optional[dict] = None
+    level: TariffLevel
 
 class TariffCreate(TariffBase):
     pass
 
 class TariffResponse(TariffBase):
     class Config:
-        orm_mode = True
+        from_attributes = True
 
-class TariffCombinationBase(BaseModel):
-    id: str
-    basetarif_id: str
-    addontarif_id: str
+class TariffFeatureBase(BaseModel):
+    tariff_id: str
+    key: str
+    name: str
+    description_short: str
+    description_long: str
+    value: str
+    value_type: ValueType
 
-class TariffCombinationCreate(TariffCombinationBase):
+class TariffFeatureCreate(TariffFeatureBase):
+    pass 
+
+class TariffFeatureResponse(TariffFeatureBase):
+    class Config:
+        from_attributes = True  
+
+class TariffCostBase(BaseModel):
+    tariff_id: str
+    age_min: int
+    age_max: int
+    monthly_cost: float
+
+class TariffCostCreate(TariffCostBase):
     pass
 
-class TariffCombinationResponse(TariffCombinationBase):
+
+class TariffCostResponse(TariffCostBase):
     class Config:
-        orm_mode = True
+        from_attributes = True
+
 
 class PflegepflichtversicherungBase(BaseModel):
     id: str
     insurer_id: str
-    min_age: int
-    max_age: int
     cost: float
     special_conditions: Optional[dict] = None
 

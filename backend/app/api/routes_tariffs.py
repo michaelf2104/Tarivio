@@ -16,13 +16,8 @@ def create_tariff(tariff: schemas.TariffCreate, db: Session = Depends(get_db)):
         new_tariff = db_models.Tariff(
             id=tariff.id,
             name=tariff.name,
-            type=tariff.type,
-            cost=tariff.cost,
-            deductible=tariff.deductible,
-            selfpay_type=tariff.selfpay_type,
-            selfpay_amount=tariff.selfpay_amount,
             insurer_id=tariff.insurer_id,
-            features=tariff.features
+            level=tariff.level,
         )
         db.add(new_tariff)
         db.commit()
